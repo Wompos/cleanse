@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://y7k0wlvwlq7d"]
+[gd_scene load_steps=3 format=3 uid="uid://y7k0wlvwlq7d"]
+
+[ext_resource type="Script" path="res://main_menu.gd" id="1_521co"]
+[ext_resource type="Texture2D" uid="uid://ox0yvpx47v6d" path="res://really_bad_title_screen.png" id="1_rrj3a"]
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -10,6 +13,22 @@ anchor_bottom = 0.5
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 4
+script = ExtResource("1_521co")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1111.0
+offset_top = -346.0
+offset_right = -31.0
+offset_bottom = 374.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_rrj3a")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -36,3 +55,7 @@ text = "Options"
 [node name="Exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Exit"
+
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
