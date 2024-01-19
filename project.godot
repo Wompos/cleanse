@@ -12,8 +12,13 @@ config_version=5
 
 config/name="Cleanse"
 run/main_scene="res://scenes/main_menu.tscn"
+config/use_custom_user_dir=true
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+PersistentData="*res://scripts/persistent_data.gd"
 
 [input]
 
