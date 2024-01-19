@@ -3,6 +3,8 @@
 #Make double jump animation work properly
 #Make wall jumping propel you away from the wall
 
+# https://www.youtube.com/watch?v=N6-2Iwb8xoU Sound Effects and Music
+
 extends CharacterBody2D
 const SPEED = 200.0
 const JUMP_VELOCITY = -350.0
@@ -25,6 +27,13 @@ var facing = true
 
 @onready var healthText = $Health
 @onready var respawnTimer = $RespawnTimer
+
+@onready var walk_audio = $WalkAudio
+@onready var walk_streams = [
+	preload("res://assets/sounds/walk_1.wav"),
+	preload("res://assets/sounds/walk_2.wav"),
+	preload("res://assets/sounds/walk_3.wav")
+]
 
 @export var max_health : float = 3
 @export var start_pos : Vector2 = Vector2(411, 593)
@@ -51,8 +60,15 @@ func _physics_process(delta):
 			velocity.x = move_toward(velocity.x, 0, ACCEL)
 		elif Input.is_action_pressed("move_right"):
 			velocity.x = min(velocity.x + 25, SPEED)
+			
+			# play walk sound
+			play_walk_sound()
+			
 		elif Input.is_action_pressed("move_left"):
 			velocity.x = max(velocity.x - 25, -SPEED)
+			
+			# play walk sound
+			play_walk_sound()
 		else:
 			velocity.x = move_toward(velocity.x, 0, ACCEL)
 		
@@ -80,6 +96,11 @@ func _physics_process(delta):
 	healthText.text = "[center]" + str(health) + "[/center]"
 	
 	move_and_slide()
+
+func play_walk_sound():
+	if not walk_audio.playing and is_on_floor():
+		walk_audio.stream = walk_streams[randi() % walk_streams.size()]  # pick random sound
+		walk_audio.play()
 
 func reset():
 	position.x = start_pos.x
