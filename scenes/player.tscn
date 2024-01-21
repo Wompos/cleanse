@@ -403,7 +403,7 @@ offset_left = -19.0
 offset_top = -39.0
 offset_right = 21.0
 offset_bottom = -16.0
-text = "hp"
+text = "fuel"
 
 [node name="RespawnTimer" type="Timer" parent="."]
 

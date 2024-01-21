@@ -36,9 +36,11 @@ var facing = true
 ]
 
 @export var max_health : float = 3
+@export var max_fuel : float = 1
 @export var start_pos : Vector2 = Vector2(411, 593)
 
 var health = max_health
+var fuel = max_fuel
 var last_velocity = Vector2(0, 0)
 
 func _ready():
@@ -53,7 +55,7 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, ACCEL)
 	else:
 		# Handle jump.
-		how_to_jump()
+		how_to_jump(delta)
 
 		#Get the input direction and handle the movement/deceleration.
 		if Input.is_action_pressed("move_left") && Input.is_action_pressed("move_right"):
@@ -75,12 +77,6 @@ func _physics_process(delta):
 		# Wall jumping
 		if real_is_on_wall() && not is_on_floor() && velocity.y > 0:
 			velocity.y = W_slide
-			
-		# Check for damage
-		if velocity.y == 0 and last_velocity.y >= 500:
-			velocity.x = -200 if sprite_2d.flip_h else 200
-			velocity.y = -100
-			health -= 1
 		
 		if position.y > 1000:
 			reset()
@@ -93,7 +89,7 @@ func _physics_process(delta):
 	
 	# Save last velocity
 	last_velocity = Vector2(velocity.x, velocity.y)
-	healthText.text = "[center]" + str(health) + "[/center]"
+	healthText.text = "[center]" + str(fuel) + "[/center]"
 	
 	move_and_slide()
 
@@ -136,7 +132,7 @@ func pick_animation():
 	if velocity.x < 0:
 		sprite_2d.flip_h = true
 
-func how_to_jump():
+func how_to_jump(delta: float):
 	if is_on_floor():
 		double_jump = true
 	
@@ -158,9 +154,12 @@ func how_to_jump():
 			velocity.x = 500.0
 		else:
 			velocity.x = -500.0
-	elif Input.is_action_just_pressed("jump") and double_jump and !is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	elif Input.is_action_just_pressed("jump") and !is_on_floor():
 		double_jump = false
+	
+	if Input.is_action_pressed("jump") and !is_on_floor() and not double_jump:
+		velocity.y += JUMP_VELOCITY * 4.5 * delta
+		velocity.y = max(velocity.y, JUMP_VELOCITY * 1.5)
 	
 	if Input.is_action_just_released("jump") && (velocity.y < -125):
 		velocity.y = -125
