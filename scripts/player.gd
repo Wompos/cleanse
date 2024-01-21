@@ -8,6 +8,7 @@
 extends CharacterBody2D
 const SPEED = 200.0
 const JUMP_VELOCITY = -350.0
+const JETPACK_START_VELOCITY_CAP = 100
 const ACCEL = 25.0
 const W_slide = 25.0
 const WALL_JUMP_VELOCITY = -200.0
@@ -36,8 +37,12 @@ var facing = true
 ]
 
 @export var max_health : float = 3
-@export var max_fuel : float = 1
 @export var start_pos : Vector2 = Vector2(411, 593)
+
+# FUEL
+@export var max_fuel : float = 100
+@export var fuel_deplete : float = 3
+@export var fuel_regen : float = 1
 
 var health = max_health
 var fuel = max_fuel
@@ -91,6 +96,10 @@ func _physics_process(delta):
 	last_velocity = Vector2(velocity.x, velocity.y)
 	healthText.text = "[center]" + str(fuel) + "[/center]"
 	
+	if is_on_floor() and fuel < max_fuel:
+		fuel += fuel_regen
+		fuel = min(fuel, max_fuel)
+	
 	move_and_slide()
 
 func play_walk_sound():
@@ -102,6 +111,7 @@ func reset():
 	position.x = start_pos.x
 	position.y = start_pos.y
 	velocity.y = 0
+	fuel = max_fuel
 	health = max_health
 	respawnTimer.stop()
 	
@@ -157,9 +167,17 @@ func how_to_jump(delta: float):
 	elif Input.is_action_just_pressed("jump") and !is_on_floor():
 		double_jump = false
 	
-	if Input.is_action_pressed("jump") and !is_on_floor() and not double_jump:
-		velocity.y += JUMP_VELOCITY * 4.5 * delta
+	if Input.is_action_pressed("jump") and !is_on_floor() and not double_jump and fuel > 0:
+		var multiplier = 1
+		
+		if velocity.y > 0:
+			multiplier = 1 + velocity.y / 100
+			
+		velocity.y += JUMP_VELOCITY * 0.075 * multiplier  # 4.5 * delta
 		velocity.y = max(velocity.y, JUMP_VELOCITY * 1.5)
+		
+		fuel -= fuel_deplete
+		fuel = max(fuel, 0)
 	
 	if Input.is_action_just_released("jump") && (velocity.y < -125):
 		velocity.y = -125
