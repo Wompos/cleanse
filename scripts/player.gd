@@ -9,13 +9,13 @@ const JETPACK_START_VELOCITY_CAP = 100
 const ACCEL = 25.0
 const W_slide = 25.0
 const WALL_JUMP_VELOCITY = -200.0
+
+# Retrieve variables
+################################################################################
+# Player model
 @onready var sprite_2d = $Sprite2D
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
-var double_jump = true
-var facing = true
+# Raycasts for detection
 @onready var raycastBL = $RayCastBL
 @onready var raycastTL = $RayCastTL
 @onready var raycastBR = $RayCastBR
@@ -23,9 +23,15 @@ var facing = true
 @onready var raycastBR2 = $RayCastBR2
 @onready var raycastBL2 = $RayCastBL2
 
+# Health
 @onready var healthText = $Health
-@onready var respawnTimer = $RespawnTimer
+@export var max_health : float = 3
 
+# Respawn
+@onready var respawnTimer = $RespawnTimer
+@export var start_pos : Vector2 = Vector2(411, 593)
+
+# Walk audio
 @onready var walk_audio = $WalkAudio
 @onready var walk_streams = [
 	preload("res://assets/sounds/walk_1.wav"),
@@ -33,23 +39,27 @@ var facing = true
 	preload("res://assets/sounds/walk_3.wav")
 ]
 
+# Interactions
 @onready var all_interactions = []
 @onready var interactLabel = $"Interaction Components/InteractLabel"
-
-@export var max_health : float = 3
-@export var start_pos : Vector2 = Vector2(411, 593)
 
 # FUEL
 @export var max_fuel : float = 100
 @export var fuel_deplete : float = 3
 @export var fuel_regen : float = 1
+###############################################################################
 
+# Set variables
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var health = max_health
 var fuel = max_fuel
 var last_velocity = Vector2(0, 0)
+var double_jump = true
+var facing = true
 
 func _ready():
 	healthText.bbcode_enabled = true
+	update_interactions()
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -85,6 +95,9 @@ func _physics_process(delta):
 		
 		if position.y > 1000:
 			reset()
+		
+		if Input.is_action_just_pressed("Interact"):
+			execute_interactions()
 	
 	#Handle animation.
 	pick_animation()
@@ -204,3 +217,9 @@ func update_interactions():
 		interactLabel.text = all_interactions[0].interact_label
 	else:
 		interactLabel.text = ""
+
+func execute_interactions():
+	if all_interactions:
+		var current_interaction = all_interactions[0]
+		match current_interaction.interact_type:
+			"Pylon": print(current_interaction.interact_value)
