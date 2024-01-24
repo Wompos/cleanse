@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://f8qfydenxc4p" path="res://assets/textures/Astronaut/Run (32x32).png" id="5_wld5s"]
 [ext_resource type="Texture2D" uid="uid://cicprbqbuq1e7" path="res://assets/textures/Astronaut/Wall Jump (32x32).png" id="8_vje7h"]
 [ext_resource type="AudioStream" uid="uid://bioe1ykttf6q6" path="res://assets/sounds/walk_1.wav" id="9_exlpl"]
-[ext_resource type="Script" path="res://scenes/pylon.gd" id="9_mg4r3"]
+[ext_resource type="Script" path="res://scripts/pylon.gd" id="9_mg4r3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_72ing"]
 atlas = ExtResource("2_4h8ca")
@@ -352,6 +352,7 @@ radius = 14.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 position = Vector2(1, 0)
+collision_layer = 2
 script = ExtResource("1_xkmlh")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
