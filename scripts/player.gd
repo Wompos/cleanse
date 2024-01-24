@@ -24,7 +24,6 @@ const WALL_JUMP_VELOCITY = -200.0
 @onready var raycastBL2 = $RayCastBL2
 
 # Health
-@onready var healthText = $Health
 @export var max_health : float = 3
 
 # Respawn
@@ -43,6 +42,9 @@ const WALL_JUMP_VELOCITY = -200.0
 @onready var all_interactions = []
 @onready var interactLabel = $"Interaction Components/InteractLabel"
 
+# HUD
+@onready var hud = $CanvasLayer/HUD
+
 # FUEL
 @export var max_fuel : float = 100
 @export var fuel_deplete : float = 3
@@ -58,7 +60,6 @@ var double_jump = true
 var facing = true
 
 func _ready():
-	healthText.bbcode_enabled = true
 	update_interactions()
 
 func _physics_process(delta):
@@ -107,11 +108,13 @@ func _physics_process(delta):
 	
 	# Save last velocity
 	last_velocity = Vector2(velocity.x, velocity.y)
-	healthText.text = "[center]" + str(fuel) + "[/center]"
 	
 	if is_on_floor() and fuel < max_fuel:
 		fuel += fuel_regen
 		fuel = min(fuel, max_fuel)
+		
+	# Update fuel
+	hud.set_fuel(fuel)
 	
 	move_and_slide()
 
