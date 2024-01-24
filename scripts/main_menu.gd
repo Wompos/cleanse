@@ -19,5 +19,6 @@ func _on_options_pressed():
 
 
 func _on_exit_pressed():
-	get_node("/root/ClickSound").play()
+	get_node("/root/ClickSound").play()  # game closes before it actually plays though
+	# await get_node("/root/ClickSound").finished # uncomment this line to make it wait for the sound before closing
 	get_tree().quit()
