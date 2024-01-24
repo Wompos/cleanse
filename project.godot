@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 PersistentData="*res://scripts/persistent_data.gd"
+ClickSound="*res://scenes/click_sound.tscn"
 
 [input]
 
