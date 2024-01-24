@@ -43,7 +43,7 @@ const WALL_JUMP_VELOCITY = -200.0
 @onready var interactLabel = $"Interaction Components/InteractLabel"
 
 # HUD
-@onready var hud = $CanvasLayer/HUD
+@onready var fuel_bar = $CanvasLayer/HUD/FuelBar
 
 # FUEL
 @export var max_fuel : float = 100
@@ -114,7 +114,7 @@ func _physics_process(delta):
 		fuel = min(fuel, max_fuel)
 		
 	# Update fuel
-	hud.set_fuel(fuel)
+	fuel_bar.value = fuel
 	
 	move_and_slide()
 
