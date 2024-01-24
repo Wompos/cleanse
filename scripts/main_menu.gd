@@ -7,12 +7,15 @@ func _ready():
 	get_node("/root/PersistentData").load_data()
 	
 func _on_start_pressed():
+	$ClickSound.play()
+	await $ClickSound.finished
 	get_tree().change_scene_to_file("res://scenes/level.tscn")
 
-
 func _on_options_pressed():
+	$ClickSound.play()
 	pass # Replace with function body.
 
 
 func _on_exit_pressed():
+	$ClickSound.play()
 	get_tree().quit()
