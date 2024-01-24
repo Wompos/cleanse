@@ -1,7 +1,4 @@
 #TO DO
-#Make walls sticky
-#Make double jump animation work properly
-#Make wall jumping propel you away from the wall
 
 # https://www.youtube.com/watch?v=N6-2Iwb8xoU Sound Effects and Music
 
@@ -35,6 +32,9 @@ var facing = true
 	preload("res://assets/sounds/walk_2.wav"),
 	preload("res://assets/sounds/walk_3.wav")
 ]
+
+@onready var all_interactions = []
+@onready var interactLabel = $"Interaction Components/InteractLabel"
 
 @export var max_health : float = 3
 @export var start_pos : Vector2 = Vector2(411, 593)
@@ -106,6 +106,8 @@ func play_walk_sound():
 	if not walk_audio.playing and is_on_floor():
 		walk_audio.stream = walk_streams[randi() % walk_streams.size()]  # pick random sound
 		walk_audio.play()
+
+
 
 func reset():
 	position.x = start_pos.x
@@ -187,3 +189,18 @@ func real_is_on_wall():
 
 func _on_respawn_timer_timeout():
 	reset()
+	
+func _on_interaction_area_area_entered(area):
+	all_interactions.insert(0, area)
+	update_interactions()
+
+
+func _on_interaction_area_area_exited(area):
+	all_interactions.erase(area)
+	update_interactions()
+
+func update_interactions():
+	if all_interactions:
+		interactLabel.text = all_interactions[0].interact_label
+	else:
+		interactLabel.text = ""

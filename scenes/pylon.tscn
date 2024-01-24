@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dklhh0f7hknl1"]
+
+[ext_resource type="Script" path="res://scenes/pylon.gd" id="1_fwl33"]
+[ext_resource type="Texture2D" uid="uid://bolpxin6ytm0e" path="res://assets/Original_models/pylon.png" id="1_o8m6b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_38i37"]
+size = Vector2(43, 87)
+
+[node name="Pylon" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_fwl33")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(43.5, 105.5)
+scale = Vector2(0.330769, 0.291946)
+texture = ExtResource("1_o8m6b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(43.5, 105.5)
+shape = SubResource("RectangleShape2D_38i37")
