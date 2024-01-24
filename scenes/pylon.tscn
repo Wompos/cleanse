@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dklhh0f7hknl1"]
 
-[ext_resource type="Script" path="res://scenes/pylon.gd" id="1_fwl33"]
+[ext_resource type="Script" path="res://scripts/pylon.gd" id="1_fwl33"]
 [ext_resource type="Texture2D" uid="uid://bolpxin6ytm0e" path="res://assets/Original_models/pylon.png" id="1_o8m6b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38i37"]

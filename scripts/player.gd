@@ -120,8 +120,6 @@ func play_walk_sound():
 		walk_audio.stream = walk_streams[randi() % walk_streams.size()]  # pick random sound
 		walk_audio.play()
 
-
-
 func reset():
 	position.x = start_pos.x
 	position.y = start_pos.y
@@ -129,7 +127,7 @@ func reset():
 	fuel = max_fuel
 	health = max_health
 	respawnTimer.stop()
-	
+
 func pick_animation():
 	if health == 0:
 		sprite_2d.animation = "die"
@@ -202,11 +200,10 @@ func real_is_on_wall():
 
 func _on_respawn_timer_timeout():
 	reset()
-	
+
 func _on_interaction_area_area_entered(area):
 	all_interactions.insert(0, area)
 	update_interactions()
-
 
 func _on_interaction_area_area_exited(area):
 	all_interactions.erase(area)
