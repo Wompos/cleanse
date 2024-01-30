@@ -4,7 +4,7 @@ class_name Interactable extends Node2D
 @export var interact_type = "Pylon"
 @export var interact_value = "None"
 
-@export var spread_range = 12
+@export var spread_range = 20
 
 # https://docs.godotengine.org/en/stable/classes/class_tilemap.html
 

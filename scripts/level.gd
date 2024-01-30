@@ -1,4 +1,5 @@
 extends Node2D
 
 func _ready():
-	$Pylon.set_tilemap($TileMap)
+	$Pylon1.set_tilemap($TileMap)
+	$Pylon2.set_tilemap($TileMap)
