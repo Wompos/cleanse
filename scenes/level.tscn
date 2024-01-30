@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://ryl78d22d2k4"]
+[gd_scene load_steps=9 format=3 uid="uid://ryl78d22d2k4"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_rnmq1"]
 [ext_resource type="PackedScene" uid="uid://bdxjfvciddx5p" path="res://scenes/player.tscn" id="1_voaqr"]
 [ext_resource type="Texture2D" uid="uid://dvoqlrdxbxgyt" path="res://assets/Terrain/Terrain (16x16).png" id="2_fmty1"]
 [ext_resource type="PackedScene" uid="uid://dklhh0f7hknl1" path="res://scenes/pylon.tscn" id="3_s358s"]
 [ext_resource type="PackedScene" path="res://scenes/enemy_test.tscn" id="4_1sbgt"]
+[ext_resource type="AudioStream" uid="uid://bcxk5roi67svg" path="res://assets/sounds/wololo.wav" id="6_21x5u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2fttj"]
 texture = ExtResource("2_fmty1")
@@ -662,3 +663,6 @@ interact_value = "You did it!"
 
 [node name="Enemy" parent="." instance=ExtResource("4_1sbgt")]
 position = Vector2(104, 65)
+
+[node name="wololo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_21x5u")

@@ -9,6 +9,7 @@ func _ready():
 func _physics_process(delta):
 	if Input.is_action_just_pressed("Interact"):
 		print("wololo")
+		$wololo.play()
 		var tileset = $TileMap.tile_set.get_source_id(0)
 		
 		# all tiles in the world between -12 and 12 in both axes
