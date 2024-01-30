@@ -221,5 +221,9 @@ func update_interactions():
 func execute_interactions():
 	if all_interactions:
 		var current_interaction = all_interactions[0]
-		match current_interaction.interact_type:
-			"Pylon": print(current_interaction.interact_value)
+		#match current_interaction.interact_type:
+			#"Pylon": print(current_interaction.interact_value)
+			
+		# define an "interact" function in interactables for it to be called by this.
+		if "interact" in current_interaction:
+			current_interaction.interact()
