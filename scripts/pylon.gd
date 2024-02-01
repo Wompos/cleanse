@@ -36,8 +36,7 @@ func interact():
 					# Note: (-1, -1) means empty. Source: printing values
 					var current_tile = tilemap.get_cell_atlas_coords(0, delta_position + center_position)
 					
-					# Stone section is between (6,12) and (11,14)
-					# (including the two empty spots on the tile set)
+					# Stone section is between (6,12) and (11,14) on the tileset
 					if current_tile.x >= 6 and current_tile.x <= 11:
 						if current_tile.y >= 12 and current_tile.y <= 14:
 							# Grass tiles are 12 tile spaces above stone on the texture atlas
