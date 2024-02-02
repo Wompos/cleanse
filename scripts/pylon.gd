@@ -22,7 +22,7 @@ func interact():
 		$wololo.play()
 		var tileset = tilemap.tile_set.get_source_id(0)
 		var center_position = tilemap.local_to_map(self.global_position)
-		print(center_position)
+		#print(center_position)
 		
 		# all tiles in the world between -12 and 12 in both axes
 		for dx in range(-self.spread_range, self.spread_range + 1):

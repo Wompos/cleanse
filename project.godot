@@ -21,6 +21,10 @@ config/icon="res://icon.svg"
 PersistentData="*res://scripts/persistent_data.gd"
 ClickSound="*res://scenes/click_sound.tscn"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [input]
 
 jump={
